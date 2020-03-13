@@ -1,5 +1,11 @@
 import React from 'react';
 import Mymap from './components/Map';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import HomeIcon from '@material-ui/icons/Home';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 import {
   BrowserRouter as Router,
@@ -9,33 +15,31 @@ import {
 } from "react-router-dom";
 
 
-const styles = theme => ({
+const useStyles = makeStyles({
   root: {
-    marginTop: theme.spacing.unit *3,
-    width: '100%'
+    width: 500,
   },
-  flex: {
-    flex: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  }
-})
+});
 
 export default function App() {
     
+          const classes = useStyles();
+  const [value, setValue] = React.useState('recents');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+    
   return (
     <Router>
+      
 <div>
-        <ul>
-          <li>
-            <Link to="/">Accueil</Link>
-          </li>
-          <li>
-            <Link to="/map">Map</Link>
-          </li>
-        </ul>
+            <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+  <Link to="/"><BottomNavigationAction label="Accueil" value="recents" icon={<HomeIcon />} />Axxuei</Link>
+  <Link to="/map"><BottomNavigationAction label='Map' value="favorites" icon={<LocationOnIcon />} />Map</Link>
+      
+
+      </BottomNavigation>
 
         <hr />
         {/* A <Switch> looks through its children <Route>s and
